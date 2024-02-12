@@ -1,25 +1,10 @@
 pipeline {
     agent any
-    stage('Test') {
-                steps {
-                   echo 'This is a test for pipeline
-                   .'
-                }
-            }
-
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
-                script {
-                    bat 'mvn clean install'
-                }
+                sh 'mvn --version'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Build successful!'
         }
     }
 }

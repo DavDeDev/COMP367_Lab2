@@ -2,9 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <title>Pietrocola - Lab2</title>
+    <title>Pietrocola - Lab2</title>
+    <script>
+        function getCurrentHour() {
+            return new Date().getHours();
+        }
+
+        function generateGreeting() {
+            var hour = getCurrentHour();
+            var greeting;
+
+            if (hour >= 5 && hour < 12) {
+                greeting = "Good morning";
+            } else if (hour >= 12 && hour < 18) {
+                greeting = "Good afternoon";
+            } else {
+                greeting = "Good evening";
+            }
+
+            return greeting;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var greetingMessage = generateGreeting();
+            document.body.innerHTML = '<p>' + greetingMessage + ', David Pietrocola! Welcome to COMP367!</p>';
+        });
+    </script>
 </head>
 <body>
-Welcome to COMP367!
 </body>
 </html>
