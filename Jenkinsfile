@@ -34,31 +34,31 @@ pipeline {
         )
       }
     }
-  }
 
-  //     stage('Docker Build') {
-  //       steps {
-  //         script {
-  //           docker.build("your-image-name")
-  //         }
-  //       }
-  //     }
-  //
-  //     stage('Docker Login') {
-  //       steps {
-  //         withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-  //           bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
-  //         }
-  //       }
-  //     }
-  //
-  //     stage('Docker Push') {
-  //       steps {
-  //         script {
-  //           docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
-  //             docker.image("your-image-name").push("latest")
-  //           }
-  //         }
-  //       }
-  //     }
+    stage('Docker Build') {
+      steps {
+        script {
+          docker.build("assignment3-image")
+        }
+      }
+    }
+    //
+    //     stage('Docker Login') {
+    //       steps {
+    //         withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+    //           bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
+    //         }
+    //       }
+    //     }
+    //
+    //     stage('Docker Push') {
+    //       steps {
+    //         script {
+    //           docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
+    //             docker.image("your-image-name").push("latest")
+    //           }
+    //         }
+    //       }
+    //     }
+  }
 }
