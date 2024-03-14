@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM openjdk:21 AS build
+FROM openjdk:17 AS build
 ENV HOME=/usr/app
 RUN mkdir -p $HOME
 WORKDIR $HOME
@@ -11,7 +11,7 @@ RUN  ./mvnw -f $HOME/pom.xml clean package
 #
 # Package stage
 #
-FROM eclipse-temurin:21
+FROM eclipse-temurin:17
 ARG JAR_FILE=/usr/app/target/*.jar
 COPY --from=build $JAR_FILE /app/runner.jar
 EXPOSE 8080
