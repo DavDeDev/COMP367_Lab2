@@ -1,18 +1,14 @@
-#
-# Build stage
-#
-FROM openjdk:17 AS build
-ENV HOME=/usr/app
-RUN mkdir -p $HOME
-WORKDIR $HOME
-ADD . $HOME
-RUN  ./mvnw -f $HOME/pom.xml clean package
+# Use the official OpenJDK Java base image
+FROM openjdk:17-jdk
 
-#
-# Package stage
-#
-FROM eclipse-temurin:17
-ARG JAR_FILE=/usr/app/target/*.jar
-COPY --from=build $JAR_FILE /app/runner.jar
-EXPOSE 8080
-ENTRYPOINT java -jar /app/runner.jar
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the JAR into the container
+COPY target/*.jar /app/app.jar
+
+# Expose the application's port
+EXPOSE 3000
+
+# Run the application
+CMD ["java", "-jar", "app.jar"]
