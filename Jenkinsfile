@@ -4,7 +4,7 @@ pipeline {
     maven 'MAVEN3'
   }
   environment {
-    DOCKERHUB_PWD = credentials('DockerHub_Token')
+    DOCKERHUB_PWD = credentials('DOCKERHUB_PWD')
   }
 
   stages {
