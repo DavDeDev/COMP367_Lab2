@@ -4,7 +4,7 @@ pipeline {
     maven 'MAVEN3'
   }
   environment {
-    DOCKERHUB_PWD = credentials('DOCKERHUB_PWD')
+    DOCKERHUB_PWD = credentials('Dockerhub_pwd')
   }
 
   stages {
@@ -37,18 +37,18 @@ pipeline {
 
     stage('Docker Build') {
       steps {
-        //       Scripted way
-        //         script {
-        //           docker.build("davidp02/david_lab03:${BUILD_NUMBER}")
-        //         }
-        //         Declarative way
         bat "docker build -t davidp02/david_lab03:${BUILD_NUMBER} ."
       }
     }
-//     stage('Docker Login') {
-//         steps {
-//           bat "docker login -u davidp02 -p ${DOCKERHUB_PWD}"
-//         }
-//   }
-}
+    stage('Docker Login') {
+      steps {
+        bat "docker login -u davidp02 -p ${DOCKERHUB_PWD}"
+      }
+    }
+    stage('Docker Push') { // Docker push stage
+      steps {
+        bat "docker push davidp02/david_lab03:${BUILD_NUMBER}"
+      }
+    }
+  }
 }
