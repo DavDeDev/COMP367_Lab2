@@ -1,17 +1,17 @@
 pipeline {
   agent any
-  triggers {
-    pollSCM 'H/5 * * * *'
-  }
   tools {
     maven 'MAVEN3'
+  }
+  environment {
+    DOCKERHUB_PWD = credentials('DockerHub_Token')
   }
 
   stages {
 
     stage('Check out') {
       steps {
-        checkout scm
+        git url: 'https://github.com/DavDeDev/COMP367_Lab2.git', branch: 'main'
       }
     }
 
@@ -37,28 +37,18 @@ pipeline {
 
     stage('Docker Build') {
       steps {
-        script {
-          docker.build("assignment3-image")
-        }
+        //       Scripted way
+        //         script {
+        //           docker.build("davidp02/david_lab03:${BUILD_NUMBER}")
+        //         }
+        //         Declarative way
+        bat "docker build -t davidp02/david_lab03:${BUILD_NUMBER} ."
       }
     }
-    //
-    //     stage('Docker Login') {
-    //       steps {
-    //         withCredentials([usernamePassword(credentialsId: 'docker-hub-creds', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-    //           bat 'docker login -u %DOCKER_USERNAME% -p %DOCKER_PASSWORD%'
-    //         }
-    //       }
-    //     }
-    //
-    //     stage('Docker Push') {
-    //       steps {
-    //         script {
-    //           docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
-    //             docker.image("your-image-name").push("latest")
-    //           }
-    //         }
-    //       }
-    //     }
-  }
+//     stage('Docker Login') {
+//         steps {
+//           bat "docker login -u davidp02 -p ${DOCKERHUB_PWD}"
+//         }
+//   }
+}
 }
